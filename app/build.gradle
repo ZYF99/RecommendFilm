@@ -18,13 +18,13 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", '"https://"')
+            buildConfigField("String", "BASE_URL", '"https://aa"')
             buildConfigField "boolean", "ALLOW_ALL_CERTIFICATES", "true"
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", '"https://"')
+            buildConfigField("String", "BASE_URL", '"https://aa"')
             buildConfigField "boolean", "ALLOW_ALL_CERTIFICATES", "true"
         }
     }
