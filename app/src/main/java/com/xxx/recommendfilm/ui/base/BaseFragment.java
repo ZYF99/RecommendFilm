@@ -61,5 +61,11 @@ public abstract class BaseFragment<Bind extends ViewDataBinding, VM extends Base
 
     //加载界面初始化数据
     protected abstract void initData();
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        viewModel.onDestroy();
+    }
 }
 

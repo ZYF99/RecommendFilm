@@ -1,14 +1,12 @@
 package com.xxx.recommendfilm.ui.login;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
+import com.xxx.recommendfilm.manager.api.base.ResultModel;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
+import com.xxx.recommendfilm.util.ApiErrorUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
 
 public class LoginViewModel extends BaseViewModel {
 
@@ -16,20 +14,19 @@ public class LoginViewModel extends BaseViewModel {
 
     void sdd() {
 
-        apiService.login().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        isLoginSuccess.postValue(true);
-                    }
-                })
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        isLoginSuccess.postValue(true);
-                    }
-                })
-                .subscribe();
+        bindLife(
+                apiService.login()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSuccess(new Consumer<ResultModel<String>>() {
+                            @Override
+                            public void accept(ResultModel<String> stringResultModel) {
+                                isLoginSuccess.postValue(true);
+                            }
+                        })
+                        .compose(ApiErrorUtil.<ResultModel<String>>dealError())
+        );
+
 
     }
 
