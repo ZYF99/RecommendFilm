@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.xxx.recommendfilm.BR;
+import com.xxx.recommendfilm.util.DialogUtil;
 
 /*Fragment的基类*/
 public abstract class BaseFragment<Bind extends ViewDataBinding, VM extends BaseViewModel> extends Fragment {
@@ -26,10 +28,10 @@ public abstract class BaseFragment<Bind extends ViewDataBinding, VM extends Base
     protected abstract int getLayoutRes();
 
     //每个界面Binding对象
-    private Bind binding;
+    protected Bind binding;
 
     //每个界面的ViewModel对象
-    private VM viewModel;
+    protected VM viewModel;
 
     //初始化
     @Override
@@ -54,6 +56,8 @@ public abstract class BaseFragment<Bind extends ViewDataBinding, VM extends Base
         binding.executePendingBindings();
         initView();
         initData();
+        getLifecycle().addObserver(viewModel);
+        observeEvent();
     }
 
     //加载界面控件
@@ -62,10 +66,15 @@ public abstract class BaseFragment<Bind extends ViewDataBinding, VM extends Base
     //加载界面初始化数据
     protected abstract void initData();
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
+    //添加基类的事件的监听
+    private void observeEvent() {
+        viewModel.isShowLoadingProgress.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) DialogUtil.getInstance().showProgressDialog(getContext());
+                else DialogUtil.getInstance().hideProgressDialog();
+            }
+        });
     }
 }
 

@@ -1,10 +1,11 @@
 package com.xxx.recommendfilm.ui.moment;
 
 import com.xxx.recommendfilm.R;
+import com.xxx.recommendfilm.databinding.FragmentMomentBinding;
 import com.xxx.recommendfilm.databinding.FragmentNoticeBinding;
 import com.xxx.recommendfilm.ui.base.BaseFragment;
 
-public class MomentFragment extends BaseFragment<FragmentNoticeBinding, MomentViewModel> {
+public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentViewModel> {
 
     @Override
     protected Class<MomentViewModel> getViewModelClazz() { return MomentViewModel.class; }

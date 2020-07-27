@@ -6,6 +6,8 @@ import com.xxx.recommendfilm.manager.api.ApiService;
 import com.xxx.recommendfilm.manager.api.base.ApiClient;
 import com.xxx.recommendfilm.manager.api.base.HeaderInterceptor;
 import com.xxx.recommendfilm.manager.api.base.NetErrorInterceptor;
+import com.xxx.recommendfilm.util.DialogUtil;
+
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import dagger.Module;
@@ -13,13 +15,19 @@ import dagger.Provides;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 @Module
-public class ApiModule {
+public class AppModule {
 
     @Singleton
     @Provides
     public ApiService provideApiService() {
         return provideApiClient().createService(ApiService.class);
     }
+
+/*    @Singleton
+    @Provides
+    public DialogUtil provideDialogUtil() {
+        return new DialogUtil();
+    }*/
 
     @Provides
     public Gson provideGson() {

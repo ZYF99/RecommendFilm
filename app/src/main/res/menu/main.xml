@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_cut"
+        android:id="@+id/action_film"
         android:icon="@drawable/avd_cut"
         android:title="影视"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_copy"
+        android:id="@+id/action_notice"
         android:icon="@drawable/avd_copy"
         android:title="公告"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_delete"
-        android:icon="@drawable/avd_delete"
+        android:id="@+id/action_moment"
+        android:icon="@drawable/icon_moment"
         android:title="影圈"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_share"
-        android:icon="@drawable/avd_share"
+        android:id="@+id/action_mine"
+        android:icon="@drawable/icon_mine"
         android:title="我的"
         app:showAsAction="always" />
 

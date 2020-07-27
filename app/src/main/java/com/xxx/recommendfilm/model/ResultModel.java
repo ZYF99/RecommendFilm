@@ -1,8 +1,8 @@
 package com.xxx.recommendfilm.model;
 
-class ResultModel<T> {
-    Meta meta;
-    T data;
+public class ResultModel<T> {
+    private Meta meta;
+    private T data;
 
     public ResultModel(Meta meta, T data) {
         this.meta = meta;
@@ -24,30 +24,6 @@ class ResultModel<T> {
     public void setData(T data) {
         this.data = data;
     }
-
-    class Meta{
-        int code;
-        String message;
-
-        public Meta(int code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-    }
 }
+
+

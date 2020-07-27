@@ -16,7 +16,9 @@
 
 package com.xxx.recommendfilm.manager.di.component;
 
-import com.xxx.recommendfilm.manager.di.ApiModule;
+import androidx.core.app.ComponentActivity;
+import androidx.fragment.app.Fragment;
+import com.xxx.recommendfilm.manager.di.AppModule;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import javax.inject.Singleton;
 import dagger.Component;
@@ -25,7 +27,11 @@ import dagger.Component;
  * Created by amitshekhar on 07/07/17.
  */
 @Singleton
-@Component(modules = {ApiModule.class})
+@Component(modules = {AppModule.class})
 public interface AppComponent {
     void inject(BaseViewModel baseViewModel);
+
+    void inject(Fragment baseFragment);
+
+    void inject(ComponentActivity baseActivity);
 }

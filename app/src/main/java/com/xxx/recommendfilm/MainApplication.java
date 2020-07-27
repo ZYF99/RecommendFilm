@@ -5,7 +5,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
-import com.xxx.recommendfilm.manager.di.ApiModule;
+import com.xxx.recommendfilm.manager.di.AppModule;
 import com.xxx.recommendfilm.manager.di.component.AppComponent;
 import com.xxx.recommendfilm.manager.di.component.DaggerAppComponent;
 
@@ -18,7 +18,7 @@ public class MainApplication extends Application {
         Hawk.init(this).build();
         app=this;
         //初始化全局AppComponent,主要对module里面单利和app处于一个生命周期
-        appComponent = DaggerAppComponent.builder().apiModule(new ApiModule()).build();
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
     }
 
     public static MainApplication getApplication(){

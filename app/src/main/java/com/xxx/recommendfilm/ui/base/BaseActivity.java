@@ -1,12 +1,22 @@
 package com.xxx.recommendfilm.ui.base;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.xxx.recommendfilm.BR;
+import com.xxx.recommendfilm.MainApplication;
+import com.xxx.recommendfilm.util.DialogUtil;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public abstract class BaseActivity<Bind extends ViewDataBinding, VM extends BaseViewModel> extends AppCompatActivity {
@@ -34,6 +44,7 @@ public abstract class BaseActivity<Bind extends ViewDataBinding, VM extends Base
         binding.executePendingBindings();
         initView();
         initData();
+        observeEvent();
     }
 
     //加载界面控件
@@ -42,4 +53,19 @@ public abstract class BaseActivity<Bind extends ViewDataBinding, VM extends Base
     //加载界面初始化数据
     protected abstract void initData();
 
+    //添加基类的事件的监听
+    private void observeEvent() {
+        viewModel.isShowLoadingProgress.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(final Boolean aBoolean) {
+                    AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (aBoolean) DialogUtil.getInstance().showProgressDialog(BaseActivity.this);
+                            else DialogUtil.getInstance().hideProgressDialog();
+                        }
+                    });
+            }
+        });
+    }
 }

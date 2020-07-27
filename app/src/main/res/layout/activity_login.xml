@@ -6,7 +6,9 @@
     <data>
 
         <import type="android.view.View" />
-
+        <variable
+            name="viewModel"
+            type="com.xxx.recommendfilm.ui.login.LoginViewModel" />
     </data>
 
     <FrameLayout
@@ -61,9 +63,10 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:background="@drawable/input_border_bottom"
+                            android:text="@={viewModel.account}"
                             android:cursorVisible="true"
                             android:gravity="center|left|bottom"
-                            android:hint="@string/email"
+                            android:hint="@string/account"
                             android:inputType="textEmailAddress"
                             android:maxLength="50"
                             android:paddingBottom="10dp"
@@ -88,6 +91,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="30dp"
+                            android:text="@={viewModel.password}"
                             android:background="@drawable/input_border_bottom"
                             android:cursorVisible="true"
                             android:gravity="center|left|bottom"
@@ -109,18 +113,22 @@
                         android:padding="10dp"
                         android:text="@string/login"
                         android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/btn_go_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:layout_margin="15dp"
+                        android:padding="10dp"
+                        android:text="@string/tip_register"
+                        android:textSize="14dp" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
-
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/address_looking_up"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
 
     </FrameLayout>
 

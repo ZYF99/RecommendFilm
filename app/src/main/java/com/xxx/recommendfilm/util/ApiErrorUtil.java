@@ -3,9 +3,7 @@ package com.xxx.recommendfilm.util;
 import android.util.Log;
 
 import com.xxx.recommendfilm.MainApplication;
-import com.xxx.recommendfilm.manager.api.base.ResultModel;
-
-import java.net.UnknownHostException;
+import com.xxx.recommendfilm.manager.api.base.ApiException;
 
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
@@ -22,8 +20,12 @@ public class ApiErrorUtil {
                return upstream.doOnError(new Consumer<Throwable>() {
                    @Override
                    public void accept(Throwable throwable){
-                       Log.d("RxThrowable",throwable.getMessage());
-                       MainApplication.getApplication().showToast(throwable.getMessage());
+                       if (throwable instanceof ApiException) {
+                           MainApplication.getApplication().showToast(((ApiException)throwable).getErrorMsg());
+                       }else {
+                           Log.d("RxThrowable",throwable.getMessage());
+                       }
+
                    }
                });
            }
