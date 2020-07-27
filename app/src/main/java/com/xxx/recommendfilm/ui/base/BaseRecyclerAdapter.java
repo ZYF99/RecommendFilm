@@ -26,7 +26,7 @@ public abstract class BaseRecyclerAdapter<Bean, Binding extends ViewDataBinding>
 
     private int layoutRes;
     private Boolean hasLoadMore;
-    private List<Bean> baseList;
+    public List<Bean> baseList;
     private OnCellClickListener<Bean> onCellClickListener;
     private View headerView;
     private MutableLiveData<Boolean> onLoadMore = new MutableLiveData<>(false);
@@ -158,7 +158,6 @@ public abstract class BaseRecyclerAdapter<Bean, Binding extends ViewDataBinding>
                             onCellClickListener.onCellClick(baseList.get(pos));
                     }
                 });
-                holder1.binding.setVariable(BR.model, baseList.get(pos));
                 bindData(holder1.binding, pos);
                 break;
             case ITEM_TYPE_HEADER:

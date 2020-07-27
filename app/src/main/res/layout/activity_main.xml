@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.xxx.recommendfilm.ui.home.MainViewModel" />
@@ -14,6 +15,20 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.MainActivity">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="逗趣影视"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <FrameLayout
             android:id="@+id/maincontainer"
             android:layout_width="match_parent"
@@ -21,7 +36,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/app_bar">
 
         </FrameLayout>
 

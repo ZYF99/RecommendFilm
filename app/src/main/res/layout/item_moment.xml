@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="film"
-            type="com.xxx.recommendfilm.model.film.Film" />
+            name="moment"
+            type="com.xxx.recommendfilm.model.moment.Moment" />
     </data>
 
 
@@ -20,6 +20,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -32,13 +33,14 @@
                 android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="1dp"
                 app:layout_constraintDimensionRatio="w,2:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
 
                 <ImageView
                     android:id="@+id/img"
@@ -57,33 +59,31 @@
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
+                android:text="Online project hosting using Git. Includes source-code browser, in-line editing, wikis, and ticketing. Free for public open-source code. Commercial closed sou..."
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card"
-                android:text="黑纱晶 浪漫邂逅" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:textColor="#A8A8A8"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                tools:ignore="RtlCompat"
-                android:text="17:40" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="end"
+            android:text="17:40"
+            android:textColor="#A8A8A8"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/cl_img"
+            app:layout_constraintStart_toStartOf="@+id/cl_img"
+            app:layout_constraintTop_toBottomOf="@+id/cl_img"
+            tools:ignore="RtlCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
