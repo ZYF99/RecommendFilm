@@ -1,24 +1,18 @@
 package com.xxx.recommendfilm.ui.notice;
 
+import androidx.lifecycle.Observer;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.xxx.recommendfilm.R;
-import com.xxx.recommendfilm.databinding.FragmentFilmBinding;
 import com.xxx.recommendfilm.databinding.FragmentNoticeBinding;
-import com.xxx.recommendfilm.model.moment.Moment;
 import com.xxx.recommendfilm.model.notice.Notice;
 import com.xxx.recommendfilm.ui.base.BaseFragment;
 import com.xxx.recommendfilm.ui.base.BaseRecyclerAdapter;
-import com.xxx.recommendfilm.ui.moment.MomentRecyclerAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeViewModel> {
 
     NoticeRecyclerAdapter noticeRecyclerAdapter;
-    List<Notice> noticeList = new ArrayList<>();
-
 
     @Override
     protected Class<NoticeViewModel> getViewModelClazz() {
@@ -34,8 +28,15 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
     @Override
     protected void initView() {
 
+        viewModel.noticeList.observe(this, new Observer<List<Notice>>() {
+            @Override
+            public void onChanged(List<Notice> notices) {
+                noticeRecyclerAdapter.replaceData(notices);
+            }
+        });
+
         //电影列表适配器
-        noticeRecyclerAdapter = new NoticeRecyclerAdapter(this, R.layout.item_notice, true, noticeList);
+        noticeRecyclerAdapter = new NoticeRecyclerAdapter(this, R.layout.item_notice, true, new ArrayList<Notice>());
         binding.rvNotice.setAdapter(noticeRecyclerAdapter);
 
         //电影点击跳转详情
@@ -57,17 +58,6 @@ public class NoticeFragment extends BaseFragment<FragmentNoticeBinding, NoticeVi
 
     @Override
     protected void initData() {
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeList.add(new Notice());
-        noticeRecyclerAdapter.notifyDataSetChanged();
+        viewModel.fetchMoticeList();
     }
 }

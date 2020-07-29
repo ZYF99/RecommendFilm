@@ -1,20 +1,25 @@
-package com.xxx.recommendfilm.ui.mine;
+package com.xxx.recommendfilm.ui.setting;
 
 import androidx.lifecycle.MutableLiveData;
+
+import com.xxx.recommendfilm.MainApplication;
 import com.xxx.recommendfilm.model.ResultModel;
+import com.xxx.recommendfilm.model.mine.UpdateUserProfileRequestModel;
 import com.xxx.recommendfilm.model.mine.UserProfile;
 import com.xxx.recommendfilm.model.moment.Moment;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import com.xxx.recommendfilm.util.ApiErrorUtil;
 import com.xxx.recommendfilm.util.RxUtil;
+
 import java.util.ArrayList;
 import java.util.List;
-import io.reactivex.functions.Consumer;
 
-public class MineViewModel extends BaseViewModel {
+import io.reactivex.functions.Consumer;
+import okhttp3.ResponseBody;
+
+public class SettingViewModel extends BaseViewModel {
 
     public MutableLiveData<UserProfile> userProfileLiveData = new MutableLiveData();
-    public MutableLiveData<List<Moment>> momentListLiveData = new MutableLiveData();
 
     //拉取我的个人信息
     public void getUserProfile() {
@@ -32,26 +37,27 @@ public class MineViewModel extends BaseViewModel {
         );
     }
 
-    //拉取影圈列表
-    public void fetchMyMomentsList() {
-/*        bindLife(
-                apiService.fetchMomentList()
-                        .compose(RxUtil.<ResultModel<List<Moment>>>switchThread())
-                        .compose(ApiErrorUtil.<ResultModel<List<Moment>>>dealError())
-                        .compose(this.<ResultModel<List<Moment>>>autoProgressDialog())
-                        .doOnSuccess(new Consumer<ResultModel<List<Moment>>>() {
+    //更新我的个人信息
+    public void updateUserProfile(
+            String avatar,
+            String background,
+            Long birthday,
+            String gender,
+            String nikeName,
+            String signature
+    ) {
+        bindLife(
+                apiService.updateUserProfile(new UpdateUserProfileRequestModel(avatar, background, birthday, gender, nikeName, signature))
+                        .compose(ApiErrorUtil.<ResponseBody>dealError())
+                        .compose(RxUtil.<ResponseBody>switchThread())
+                        .compose(this.<ResponseBody>autoProgressDialog())
+                        .doOnSuccess(new Consumer<ResponseBody>() {
                             @Override
-                            public void accept(ResultModel<List<Moment>> userProfile) {
-                                momentList.postValue(userProfile.getData());
+                            public void accept(ResponseBody responseBody) {
+                                MainApplication.getApplication().showToast("更新成功");
                             }
                         })
-        );*/
-        List<Moment> moments = new ArrayList<>();
-        moments.add(new Moment());
-        moments.add(new Moment());
-        moments.add(new Moment());
-        moments.add(new Moment());
-        momentListLiveData.postValue(moments);
+        );
     }
 
 }

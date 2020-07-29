@@ -1,19 +1,20 @@
 package com.xxx.recommendfilm.ui.film;
 
-import android.util.Pair;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.xxx.recommendfilm.ui.innerfilm.InnerFilmFragment;
+
 import java.util.List;
 
 public class FilmPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Pair<Fragment,String>> fragmentList;
+    private List<InnerFilmFragment> fragmentList;
 
-    public FilmPagerAdapter(@NonNull FragmentManager fm, List<Pair<Fragment,String>>fragmentList) {
+    public FilmPagerAdapter(@NonNull FragmentManager fm, List<InnerFilmFragment>fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;
     }
@@ -21,7 +22,7 @@ public class FilmPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position).first;
+        return fragmentList.get(position);
     }
 
     @Override
@@ -32,6 +33,6 @@ public class FilmPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return fragmentList.get(position).second;
+        return fragmentList.get(position).classify;
     }
 }

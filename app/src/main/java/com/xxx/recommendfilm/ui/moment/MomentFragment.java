@@ -1,5 +1,6 @@
 package com.xxx.recommendfilm.ui.moment;
 
+import androidx.lifecycle.Observer;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.FragmentMomentBinding;
@@ -12,7 +13,6 @@ import java.util.List;
 public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentViewModel> {
 
     MomentRecyclerAdapter momentRecyclerAdapter;
-    List<Moment> momentList = new ArrayList<>();
 
     @Override
     protected Class<MomentViewModel> getViewModelClazz() {
@@ -28,8 +28,15 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
     @Override
     protected void initView() {
 
+        viewModel.momentList.observe(this, new Observer<List<Moment>>() {
+            @Override
+            public void onChanged(List<Moment> moments) {
+                momentRecyclerAdapter.replaceData(moments);
+            }
+        });
+
         //电影列表适配器
-        momentRecyclerAdapter = new MomentRecyclerAdapter(this, R.layout.item_moment, true, momentList);
+        momentRecyclerAdapter = new MomentRecyclerAdapter(this, R.layout.item_moment, true, new ArrayList<Moment>());
         binding.rvMoment.setAdapter(momentRecyclerAdapter);
 
         //电影点击跳转详情
@@ -51,15 +58,6 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
 
     @Override
     protected void initData() {
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentList.add(new Moment());
-        momentRecyclerAdapter.notifyDataSetChanged();
+        viewModel.fetchMyMomentsList();
     }
 }

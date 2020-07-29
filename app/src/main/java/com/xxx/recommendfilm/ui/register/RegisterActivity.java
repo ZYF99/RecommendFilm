@@ -2,6 +2,7 @@ package com.xxx.recommendfilm.ui.register;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import androidx.lifecycle.Observer;
 
@@ -39,6 +40,13 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding, Regi
             @Override
             public void onClick(View v) {
                 viewModel.registerAndLogin();
+            }
+        });
+        binding.rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.rb_femail) viewModel.sex.postValue("F");
+                else viewModel.sex.postValue("M");
             }
         });
     }

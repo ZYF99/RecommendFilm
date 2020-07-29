@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/white</color>
     <color name="colorPrimaryDark">@color/black</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF9E80</color>
     <color name="light_gray">#dbdbdb</color>
     <color name="gray">#7e7e7e</color>
     <color name="semi_gray">#979797</color>
@@ -17,6 +17,8 @@
     <color name="fb">#3b5998</color>
     <color name="google">#d34836</color>
 
+    <color name="colorMale">#00BCD4</color>
+    <color name="colorFemale">#E91E63</color>
     <!--Design colors-->
     <color name="red_dark">#F06423</color>
     <color name="red_dark2">#D85A1B</color>

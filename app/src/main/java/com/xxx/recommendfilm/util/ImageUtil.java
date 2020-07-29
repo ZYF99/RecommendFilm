@@ -1,10 +1,11 @@
 package com.xxx.recommendfilm.util;
 
+import android.content.res.ColorStateList;
 import android.widget.ImageView;
-
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
-
 import com.bumptech.glide.Glide;
+import com.xxx.recommendfilm.MainApplication;
 import com.xxx.recommendfilm.R;
 
 public class ImageUtil {
@@ -16,5 +17,36 @@ public class ImageUtil {
                 .centerCrop()
                 .into(imageView);
     }
-}
 
+    @BindingAdapter("gender")
+    public static void getGenderDrawable(ImageView imageView, String gender) {
+        if (gender == "F") {
+            Glide.with(imageView.getContext()).load(R.drawable.icon_genderfemale)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .dontAnimate()
+                    .into(imageView);
+            imageView.setImageTintList(
+                    ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                    MainApplication.getAppContext(),
+                                    R.color.colorFemale
+                            )
+                    )
+            );
+        } else {
+            Glide.with(imageView.getContext()).load(R.drawable.icon_gendermale)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .dontAnimate()
+                    .into(imageView);
+
+            imageView.setImageTintList(
+                    ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                    MainApplication.getAppContext(),
+                                    R.color.colorMale
+                            )
+                    )
+            );
+        }
+    }
+}

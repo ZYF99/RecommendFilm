@@ -10,7 +10,9 @@ import com.xxx.recommendfilm.model.register.RegisterResultModel;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import com.xxx.recommendfilm.util.ApiErrorUtil;
 import com.xxx.recommendfilm.util.RxUtil;
+
 import io.reactivex.functions.Consumer;
+
 import static com.xxx.recommendfilm.Constants.KEY_ACCOUNT;
 import static com.xxx.recommendfilm.Constants.KEY_PASSWORD;
 import static com.xxx.recommendfilm.Constants.KEY_TOKEN;
@@ -22,13 +24,14 @@ public class RegisterViewModel extends BaseViewModel {
     public MutableLiveData<String> nickName = new MutableLiveData<>("");
     public MutableLiveData<String> account = new MutableLiveData<>("");
     public MutableLiveData<String> password = new MutableLiveData<>("");
+    public MutableLiveData<String> sex = new MutableLiveData<>("M");
 
     void registerAndLogin() {
         bindLife(
                 apiService.register(new RegisterRequestModel(
                         account.getValue(),
-                        "https://w.wallha",
-                        "M",
+                        "https://w.wallhaven.cc/full/39/wallhaven-39pw6v.jpg",
+                        sex.getValue(),
                         nickName.getValue(),
                         password.getValue(),
                         "User"
