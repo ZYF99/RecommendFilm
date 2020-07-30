@@ -1,6 +1,7 @@
 package com.xxx.recommendfilm.util;
 
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.widget.ImageView;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
@@ -11,20 +12,18 @@ import com.xxx.recommendfilm.R;
 public class ImageUtil {
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView imageView, String url) {
-        Glide.with(imageView.getContext()).load(url)
-                .placeholder(R.color.white)
-                .skipMemoryCache(false)
-                .centerCrop()
-                .into(imageView);
+        Glide.with(imageView.getContext()).load(url).into(imageView);
+    }
+
+    @BindingAdapter("imageUrl")
+    public static void loadImage(ImageView imageView, Uri uri) {
+        Glide.with(imageView.getContext()).load(uri).into(imageView);
     }
 
     @BindingAdapter("gender")
     public static void getGenderDrawable(ImageView imageView, String gender) {
         if (gender == "F") {
-            Glide.with(imageView.getContext()).load(R.drawable.icon_genderfemale)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .dontAnimate()
-                    .into(imageView);
+            Glide.with(imageView.getContext()).load(R.drawable.icon_genderfemale).into(imageView);
             imageView.setImageTintList(
                     ColorStateList.valueOf(
                             ContextCompat.getColor(
@@ -34,10 +33,7 @@ public class ImageUtil {
                     )
             );
         } else {
-            Glide.with(imageView.getContext()).load(R.drawable.icon_gendermale)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .dontAnimate()
-                    .into(imageView);
+            Glide.with(imageView.getContext()).load(R.drawable.icon_gendermale).into(imageView);
 
             imageView.setImageTintList(
                     ColorStateList.valueOf(

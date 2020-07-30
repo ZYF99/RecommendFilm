@@ -47,7 +47,6 @@
     </style>
 
 
-
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/black_effective</item>
         <item name="android:layout_height">48dp</item>

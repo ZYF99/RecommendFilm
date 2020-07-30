@@ -41,15 +41,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="头像" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                imageUrl="@{viewModel.userProfileLiveData.avatar}"
+                imageUrl="@{viewModel.avatarLocalUriLiveData}"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@color/black"
                 tools:src="@drawable/icon_mine" />
         </LinearLayout>
 
@@ -66,15 +65,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="背景" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                imageUrl="@{viewModel.userProfileLiveData.background}"
+            <ImageView
+                imageUrl="@{viewModel.backgroundLocalUrlLiveData}"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@color/black"
                 tools:src="@drawable/icon_mine" />
         </LinearLayout>
 
@@ -96,7 +94,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:minWidth="100dp" />
+                android:minWidth="100dp"
+                android:text="@={viewModel.nikeNameLiveData}" />
         </LinearLayout>
 
         <LinearLayout
@@ -163,7 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:minWidth="100dp" />
+                android:minWidth="100dp"
+                android:text="@={viewModel.signatureLiveData}" />
         </LinearLayout>
 
         <Button

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FilmFragment extends BaseFragment<FragmentFilmBinding, FilmViewModel> {
 
-    private List<InnerFilmFragment> fragmentList = new ArrayList<>();
+    private List<Pair<InnerFilmFragment,String>> fragmentList = new ArrayList<>();
 
     @Override
     protected Class<FilmViewModel> getViewModelClazz() {
@@ -28,13 +28,12 @@ public class FilmFragment extends BaseFragment<FragmentFilmBinding, FilmViewMode
 
     @Override
     protected void initView() {
-        fragmentList.add(new InnerFilmFragment("喜剧"));
-        fragmentList.add(new InnerFilmFragment("悲剧"));
-        fragmentList.add(new InnerFilmFragment("动画片"));
-        fragmentList.add(new InnerFilmFragment("情感片"));
-        fragmentList.add(new InnerFilmFragment("科教片"));
-        fragmentList.add(new InnerFilmFragment("恐怖片"));
-        fragmentList.add(new InnerFilmFragment("科幻片"));
+        fragmentList.add(Pair.create(new InnerFilmFragment(),"喜剧"));
+        fragmentList.add(Pair.create(new InnerFilmFragment(),"悲剧"));
+        fragmentList.add(Pair.create(new InnerFilmFragment(),"动画片"));
+        fragmentList.add(Pair.create(new InnerFilmFragment(),"情感片"));
+        fragmentList.add(Pair.create(new InnerFilmFragment(),"科教片"));
+        fragmentList.add(Pair.create(new InnerFilmFragment(),"科幻片"));
 
         FilmPagerAdapter filmPagerAdapter = new FilmPagerAdapter(this.getChildFragmentManager(), fragmentList);
         binding.viewPager.setAdapter(filmPagerAdapter);

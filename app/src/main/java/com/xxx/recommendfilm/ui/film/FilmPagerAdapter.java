@@ -1,5 +1,8 @@
 package com.xxx.recommendfilm.ui.film;
 
+import android.os.Bundle;
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -10,11 +13,13 @@ import com.xxx.recommendfilm.ui.innerfilm.InnerFilmFragment;
 
 import java.util.List;
 
+import static com.xxx.recommendfilm.ui.innerfilm.InnerFilmFragment.KEY_CLASSIFY;
+
 public class FilmPagerAdapter extends FragmentPagerAdapter {
 
-    private List<InnerFilmFragment> fragmentList;
+    private List<Pair<InnerFilmFragment, String>> fragmentList;
 
-    public FilmPagerAdapter(@NonNull FragmentManager fm, List<InnerFilmFragment>fragmentList) {
+    public FilmPagerAdapter(@NonNull FragmentManager fm, List<Pair<InnerFilmFragment, String>> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;
     }
@@ -22,7 +27,10 @@ public class FilmPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_CLASSIFY,fragmentList.get(position).second);
+        fragmentList.get(position).first.setArguments(bundle);
+        return fragmentList.get(position).first;
     }
 
     @Override
@@ -33,6 +41,6 @@ public class FilmPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return fragmentList.get(position).classify;
+        return fragmentList.get(position).second;
     }
 }

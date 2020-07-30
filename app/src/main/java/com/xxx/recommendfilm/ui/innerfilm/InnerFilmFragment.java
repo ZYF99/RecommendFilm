@@ -17,12 +17,9 @@ import java.util.List;
 
 public class InnerFilmFragment extends BaseFragment<FragmentInnerFilmBinding, InnerFilmViewModel> {
 
+    public static final String KEY_CLASSIFY = "key_classify";
     InnerFilmRecyclerAdapter innerFilmRecyclerAdapter;
-    public String classify;
-
-    public InnerFilmFragment(String classify){
-        this.classify = classify;
-    }
+    public String classify = "";
 
     @Override
     protected Class<InnerFilmViewModel> getViewModelClazz() {
@@ -36,6 +33,9 @@ public class InnerFilmFragment extends BaseFragment<FragmentInnerFilmBinding, In
 
     @Override
     protected void initView() {
+
+        assert getArguments() != null;
+        classify = getArguments().getString(KEY_CLASSIFY);
 
         viewModel.filmListLiveData.observe(this, new Observer<List<Film>>() {
             @Override

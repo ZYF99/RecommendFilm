@@ -1,18 +1,16 @@
 package com.xxx.recommendfilm.ui.setting;
 
+import android.net.Uri;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.xxx.recommendfilm.MainApplication;
 import com.xxx.recommendfilm.model.ResultModel;
 import com.xxx.recommendfilm.model.mine.UpdateUserProfileRequestModel;
 import com.xxx.recommendfilm.model.mine.UserProfile;
-import com.xxx.recommendfilm.model.moment.Moment;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import com.xxx.recommendfilm.util.ApiErrorUtil;
 import com.xxx.recommendfilm.util.RxUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
@@ -20,6 +18,11 @@ import okhttp3.ResponseBody;
 public class SettingViewModel extends BaseViewModel {
 
     public MutableLiveData<UserProfile> userProfileLiveData = new MutableLiveData();
+    public MutableLiveData<String> nikeNameLiveData = new MutableLiveData();
+    public MutableLiveData<String> genderLiveData = new MutableLiveData();
+    public MutableLiveData<Uri> avatarLocalUriLiveData = new MutableLiveData();
+    public MutableLiveData<Uri> backgroundLocalUrlLiveData = new MutableLiveData();
+    public MutableLiveData<String> signatureLiveData = new MutableLiveData();
 
     //拉取我的个人信息
     public void getUserProfile() {
@@ -32,6 +35,9 @@ public class SettingViewModel extends BaseViewModel {
                             @Override
                             public void accept(ResultModel<UserProfile> userProfile) {
                                 userProfileLiveData.postValue(userProfile.getData());
+                                genderLiveData.postValue(userProfile.getData().getGender());
+                                nikeNameLiveData.postValue(userProfile.getData().getNikeName());
+                                signatureLiveData.postValue(userProfile.getData().getSignature());
                             }
                         })
         );
@@ -41,13 +47,10 @@ public class SettingViewModel extends BaseViewModel {
     public void updateUserProfile(
             String avatar,
             String background,
-            Long birthday,
-            String gender,
-            String nikeName,
-            String signature
+            Long birthday
     ) {
         bindLife(
-                apiService.updateUserProfile(new UpdateUserProfileRequestModel(avatar, background, birthday, gender, nikeName, signature))
+                apiService.updateUserProfile(new UpdateUserProfileRequestModel(avatar, background, birthday, genderLiveData.getValue(), nikeNameLiveData.getValue(), signatureLiveData.getValue()))
                         .compose(ApiErrorUtil.<ResponseBody>dealError())
                         .compose(RxUtil.<ResponseBody>switchThread())
                         .compose(this.<ResponseBody>autoProgressDialog())

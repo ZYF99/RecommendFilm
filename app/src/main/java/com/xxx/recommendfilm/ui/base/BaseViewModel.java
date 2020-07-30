@@ -34,7 +34,7 @@ public class BaseViewModel extends ViewModel implements BindLife, LifecycleObser
             }
         }, new Consumer<Throwable>() {
             @Override
-            public void accept(Throwable throwable) throws Exception {
+            public void accept(Throwable throwable) {
                 //Log.d("RxError", throwable.getMessage());
             }
         }));
