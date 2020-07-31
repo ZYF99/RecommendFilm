@@ -3,12 +3,12 @@ package com.xxx.recommendfilm.ui.setting;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.view.View;
 import android.widget.DatePicker;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
+
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.ActivitySettingBinding;
 import com.xxx.recommendfilm.model.mine.UserProfile;
@@ -16,8 +16,10 @@ import com.xxx.recommendfilm.ui.base.BaseActivity;
 import com.xxx.recommendfilm.ui.util.PictureSelectUtil;
 import com.xxx.recommendfilm.util.PermissionUtil;
 import com.zhihu.matisse.Matisse;
-import io.reactivex.functions.Action;
 
+import java.util.Calendar;
+
+import io.reactivex.functions.Action;
 
 public class SettingActivity extends BaseActivity<ActivitySettingBinding, SettingViewModel> {
 
@@ -92,15 +94,17 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding, Settin
         binding.llBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
- /*               Calendar calendar = Calendar.getInstance();
+                final Calendar calendar = Calendar.getInstance();
                 new DatePickerDialog(SettingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        //binding.tvBirthday.setText(calendar.get(Calendar.YEAR));
+                        binding.tvBirthday.setText(calendar.get(Calendar.YEAR) + "年" + calendar.get(Calendar.MONTH) + 1 + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日");
+                        //viewModel.birthdayLiveData.postValue();
+
+
                     }
-                }
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));*/
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+
             }
         });
 

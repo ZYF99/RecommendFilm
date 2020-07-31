@@ -20,6 +20,7 @@ public class SettingViewModel extends BaseViewModel {
     public MutableLiveData<UserProfile> userProfileLiveData = new MutableLiveData();
     public MutableLiveData<String> nikeNameLiveData = new MutableLiveData();
     public MutableLiveData<String> genderLiveData = new MutableLiveData();
+    public MutableLiveData<String> birthdayLiveData = new MutableLiveData();
     public MutableLiveData<Uri> avatarLocalUriLiveData = new MutableLiveData();
     public MutableLiveData<Uri> backgroundLocalUrlLiveData = new MutableLiveData();
     public MutableLiveData<String> signatureLiveData = new MutableLiveData();
