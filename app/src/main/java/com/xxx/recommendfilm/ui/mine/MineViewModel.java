@@ -22,7 +22,6 @@ public class MineViewModel extends BaseViewModel {
                 apiService.getUserProfile()
                         .compose(RxUtil.<ResultModel<UserProfile>>switchThread())
                         .compose(ApiErrorUtil.<ResultModel<UserProfile>>dealError())
-                        .compose(this.<ResultModel<UserProfile>>autoProgressDialog())
                         .doOnSuccess(new Consumer<ResultModel<UserProfile>>() {
                             @Override
                             public void accept(ResultModel<UserProfile> userProfile) {

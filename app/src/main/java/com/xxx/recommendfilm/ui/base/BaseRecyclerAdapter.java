@@ -29,7 +29,7 @@ public abstract class BaseRecyclerAdapter<Bean, Binding extends ViewDataBinding>
     public List<Bean> baseList;
     private OnCellClickListener<Bean> onCellClickListener;
     private View headerView;
-    private MutableLiveData<Boolean> onLoadMore = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> onLoadMore = new MutableLiveData<>(false);
 
     public interface OnCellClickListener<Bean> {
         void onCellClick(Bean bean);

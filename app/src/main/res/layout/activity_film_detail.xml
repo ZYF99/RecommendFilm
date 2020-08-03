@@ -29,6 +29,7 @@
             <ImageView
                 android:layout_width="128dp"
                 android:layout_height="128dp"
+                imageUrl="@{viewModel.filmLiveData.poster}"
                 android:background="@drawable/corner_8dp_rect"
                 android:scaleType="centerInside"
                 android:src="@drawable/bg_design" />
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="TextView"
+            android:text="@{viewModel.filmLiveData.name}"
             android:textColor="#000000"
             android:textSize="24dp"
             android:textStyle="bold"
@@ -56,12 +57,60 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="TextView"
+            android:text="@{viewModel.filmLiveData.introduction}"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/im_film"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/im_film"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_tip_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="导演"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/im_film" />
+
+        <TextView
+            android:id="@+id/tv_director"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{viewModel.filmLiveData.director}"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_tip_director"
+            app:layout_constraintTop_toBottomOf="@id/im_film" />
+
+        <TextView
+            android:id="@+id/tv_tip_starring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="主演"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_director" />
+
+        <TextView
+            android:id="@+id/tv_starring"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{viewModel.filmLiveData.starring}"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_tip_starring"
+            app:layout_constraintTop_toBottomOf="@id/tv_director" />
 
         <TextView
             android:id="@+id/tv_ti"
@@ -74,7 +123,7 @@
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/im_film" />
+            app:layout_constraintTop_toBottomOf="@id/tv_starring" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comment"
@@ -105,21 +154,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:padding="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/corner_8dp_rect"
-                android:backgroundTint="#3B555555" />
+                android:backgroundTint="#3B555555"
+                android:padding="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
                 android:background="@drawable/button_primary_bg"
-                android:textColor="@color/white"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
                 android:text="发表"
+                android:textColor="@color/white"
                 android:textSize="16dp" />
 
         </LinearLayout>

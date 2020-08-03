@@ -22,27 +22,28 @@ public class ImageUtil {
 
     @BindingAdapter("gender")
     public static void getGenderDrawable(ImageView imageView, String gender) {
-        if (gender == "F") {
-            Glide.with(imageView.getContext()).load(R.drawable.icon_genderfemale).into(imageView);
-            imageView.setImageTintList(
-                    ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                    MainApplication.getAppContext(),
-                                    R.color.colorFemale
-                            )
-                    )
-            );
-        } else {
-            Glide.with(imageView.getContext()).load(R.drawable.icon_gendermale).into(imageView);
-
-            imageView.setImageTintList(
-                    ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                    MainApplication.getAppContext(),
-                                    R.color.colorMale
-                            )
-                    )
-            );
+        if(gender!=null){
+            if (gender.equals("F")) {
+                Glide.with(imageView.getContext()).load(R.drawable.icon_genderfemale).into(imageView);
+                imageView.setImageTintList(
+                        ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                        MainApplication.getAppContext(),
+                                        R.color.colorFemale
+                                )
+                        )
+                );
+            } else {
+                Glide.with(imageView.getContext()).load(R.drawable.icon_gendermale).into(imageView);
+                imageView.setImageTintList(
+                        ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                        MainApplication.getAppContext(),
+                                        R.color.colorMale
+                                )
+                        )
+                );
+            }
         }
     }
 }

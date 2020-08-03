@@ -20,7 +20,8 @@ public class DialogUtil {
     public void showProgressDialog(Context context) {
         if (progressDialog == null)
             progressDialog = new AlertDialog.Builder(context).setView(R.layout.loading_layout).setCancelable(false).create();
-        if (!progressDialog.isShowing()) progressDialog.show();
+        if (!progressDialog.isShowing())
+            progressDialog.show();
     }
 
     public void hideProgressDialog() {

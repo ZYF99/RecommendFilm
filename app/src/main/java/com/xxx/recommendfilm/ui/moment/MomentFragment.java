@@ -28,31 +28,20 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
     @Override
     protected void initView() {
 
-        viewModel.momentList.observe(this, new Observer<List<Moment>>() {
-            @Override
-            public void onChanged(List<Moment> moments) {
-                momentRecyclerAdapter.replaceData(moments);
-            }
-        });
+        viewModel.momentList.observe(this, moments -> momentRecyclerAdapter.replaceData(moments));
 
         //电影列表适配器
         momentRecyclerAdapter = new MomentRecyclerAdapter(this, R.layout.item_moment, true, new ArrayList<Moment>());
         binding.rvMoment.setAdapter(momentRecyclerAdapter);
 
         //电影点击跳转详情
-        momentRecyclerAdapter.setOnCellClickListener(new BaseRecyclerAdapter.OnCellClickListener<Moment>() {
-            @Override
-            public void onCellClick(Moment Moment) {
+        momentRecyclerAdapter.setOnCellClickListener(Moment -> {
 
-            }
         });
 
         //下拉刷新监听
-        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        binding.refreshLayout.setOnRefreshListener(() -> {
 
-            }
         });
     }
 

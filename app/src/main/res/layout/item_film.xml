@@ -42,6 +42,7 @@
 
                 <ImageView
                     android:id="@+id/img"
+                    imageUrl="@{film.poster}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -60,27 +61,41 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:text="@{film.name}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card"
-                android:text="黑纱晶 浪漫邂逅" />
+                app:layout_constraintTop_toBottomOf="@+id/card" />
 
+            <TextView
+                android:id="@+id/tv_tip_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="时长："
+                android:textColor="#A8A8A8"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:ignore="RtlCompat" />
 
             <TextView
                 android:id="@+id/tv_time"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text='@{film.duration + "  min"}'
+                tools:text="120"
                 android:textColor="#A8A8A8"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_tip_duration"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                tools:ignore="RtlCompat"
-                android:text="17:40" />
+                tools:ignore="RtlCompat" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

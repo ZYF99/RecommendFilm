@@ -6,10 +6,14 @@ import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.ActivityFilmDetailBinding;
 import com.xxx.recommendfilm.model.film.FilmComment;
 import com.xxx.recommendfilm.ui.base.BaseActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilmDetailActivity extends BaseActivity<ActivityFilmDetailBinding,FilmDetailViewModel> {
+
+public class FilmDetailActivity extends BaseActivity<ActivityFilmDetailBinding, FilmDetailViewModel> {
+
+    public static final String  KEY_MID = "key_mid";
 
     FilmCommentRecyclerAdapter filmCommentRecyclerAdapter;
 
@@ -38,6 +42,8 @@ public class FilmDetailActivity extends BaseActivity<ActivityFilmDetailBinding,F
 
     @Override
     protected void initData() {
+        Long mid = getIntent().getLongExtra(KEY_MID,0);
+        viewModel.fetchFilmDetailInfo(mid);
         viewModel.fetchCommentList();
     }
 }

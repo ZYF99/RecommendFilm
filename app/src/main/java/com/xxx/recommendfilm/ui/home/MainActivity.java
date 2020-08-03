@@ -1,11 +1,6 @@
 package com.xxx.recommendfilm.ui.home;
 
-import android.view.MenuItem;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.ActivityMainBinding;
 import com.xxx.recommendfilm.ui.base.BaseActivity;
@@ -31,27 +26,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     private void setUpBottomNavigation() {
         //binding.bottomNavigation.
         //底部导航栏
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_film:
-                        replaceFragment("film");
-                        break;
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_film:
+                    replaceFragment("film");
+                    break;
 
-                    case R.id.action_notice:
-                        replaceFragment("notice");
-                        break;
+                case R.id.action_notice:
+                    replaceFragment("notice");
+                    break;
 
-                    case R.id.action_moment:
-                        replaceFragment("moment");
-                        break;
-                    case R.id.action_mine:
-                        replaceFragment("mine");
-                        break;
-                }
-                return true;
+                case R.id.action_moment:
+                    replaceFragment("moment");
+                    break;
+                case R.id.action_mine:
+                    replaceFragment("mine");
+                    break;
             }
+            return true;
         });
         binding.bottomNavigation.setSelectedItemId(R.id.action_film);
     }

@@ -103,8 +103,7 @@
                             android:tint="@color/white"
                             app:layout_constraintBottom_toBottomOf="@+id/potrait"
                             app:layout_constraintEnd_toEndOf="@+id/potrait"
-                            tools:ignore="HardcodedText"
-                            tools:src="@drawable/icon_gendermale" />
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/tv_name"
