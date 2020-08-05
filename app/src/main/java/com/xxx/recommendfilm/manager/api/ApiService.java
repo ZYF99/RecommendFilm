@@ -34,7 +34,7 @@ public interface ApiService {
     @GET("movie/classify/all")
     Single<ResultModel<ClassifyListModel>> fetchFilmClassifyList();
 
-    //分类检索电影基本信息
+    //按分类检索电影基本信息
     @GET("movie/classify")
     Single<ResultModel<FilmPageModel>> fetchFilmListByClassify(
             @Query("classify") String classify,
@@ -42,9 +42,19 @@ public interface ApiService {
             @Query("pageSize") int pageSize
     );
 
+    //按名称检索电影列表
+    @GET("movie/name")
+    Single<ResultModel<FilmPageModel>> fetchFilmListByName(
+            @Query("name") String name,
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize
+    );
+
+
     //按mid检索电影详细信息
     @GET("movie/mid")
     Single<ResultModel<Film>> fetchFilmDetailInfo(@Query("mid") Long mid);
+
 
 
     //通知相关------------------------------------------------------------------------------------------------------------------------------------

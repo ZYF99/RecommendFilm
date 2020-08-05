@@ -1,8 +1,6 @@
 package com.xxx.recommendfilm.ui.login;
 
 import android.content.Intent;
-import android.view.View;
-import androidx.lifecycle.Observer;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.ActivityLoginBinding;
 import com.xxx.recommendfilm.ui.base.BaseActivity;
@@ -23,28 +21,11 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
     @Override
     protected void initView() {
-        viewModel.isLoginSuccess.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
-                    finish();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
-
-            }
-        });
-        binding.btnServerLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.login();
-            }
-        });
-        binding.btnGoRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jumpToRegister();
-            }
-        });
+        binding.btnServerLogin.setOnClickListener(v -> viewModel.login(() -> {
+            finish();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }));
+        binding.btnGoRegister.setOnClickListener(v -> jumpToRegister());
     }
 
     @Override

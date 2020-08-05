@@ -1,5 +1,7 @@
 package com.xxx.recommendfilm.ui.home;
 
+import android.content.Intent;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.ActivityMainBinding;
@@ -84,5 +86,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                     .add(R.id.maincontainer, currentFragment, tag).commit();
         } else getSupportFragmentManager().beginTransaction().show(currentFragment).commit();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getSupportFragmentManager().getFragments().forEach(fragment -> {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

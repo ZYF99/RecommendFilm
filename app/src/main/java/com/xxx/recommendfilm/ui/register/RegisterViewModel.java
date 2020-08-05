@@ -11,6 +11,7 @@ import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import com.xxx.recommendfilm.util.ApiErrorUtil;
 import com.xxx.recommendfilm.util.RxUtil;
 
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 import static com.xxx.recommendfilm.Constants.KEY_ACCOUNT;
@@ -20,13 +21,13 @@ import static com.xxx.recommendfilm.Constants.KEY_UID;
 
 public class RegisterViewModel extends BaseViewModel {
 
-    MutableLiveData<Boolean> isRegisterSuccess = new MutableLiveData<>(false);
+    //MutableLiveData<Boolean> isRegisterSuccess = new MutableLiveData<>(false);
     public MutableLiveData<String> nickName = new MutableLiveData<>("");
     public MutableLiveData<String> account = new MutableLiveData<>("");
     public MutableLiveData<String> password = new MutableLiveData<>("");
     public MutableLiveData<String> sex = new MutableLiveData<>("M");
 
-    void registerAndLogin() {
+    void registerAndLogin(Action action) {
         bindLife(
                 apiService.register(new RegisterRequestModel(
                         account.getValue(),
@@ -35,18 +36,15 @@ public class RegisterViewModel extends BaseViewModel {
                         nickName.getValue(),
                         password.getValue(),
                         "User"
-                )).compose(RxUtil.<ResultModel<RegisterResultModel>>switchThread())
-                        .compose(ApiErrorUtil.<ResultModel<RegisterResultModel>>dealError())
-                        .compose(this.<ResultModel<RegisterResultModel>>autoProgressDialog())
-                        .doOnSuccess(new Consumer<ResultModel<RegisterResultModel>>() {
-                            @Override
-                            public void accept(ResultModel<RegisterResultModel> registerResultModelResultModel) {
-                                isRegisterSuccess.postValue(true);
-                                Hawk.put(KEY_TOKEN, registerResultModelResultModel.getData().getToken());
-                                Hawk.put(KEY_UID, registerResultModelResultModel.getData().getUid());
-                                Hawk.put(KEY_ACCOUNT, account.getValue());
-                                Hawk.put(KEY_PASSWORD, password.getValue());
-                            }
+                )).compose(RxUtil.switchThread())
+                        .compose(ApiErrorUtil.dealError())
+                        .compose(autoProgressDialog())
+                        .doOnSuccess(registerResultModelResultModel -> {
+                            Hawk.put(KEY_TOKEN, registerResultModelResultModel.getData().getToken());
+                            Hawk.put(KEY_UID, registerResultModelResultModel.getData().getUid());
+                            Hawk.put(KEY_ACCOUNT, account.getValue());
+                            Hawk.put(KEY_PASSWORD, password.getValue());
+                            action.run();
                         })
         );
     }

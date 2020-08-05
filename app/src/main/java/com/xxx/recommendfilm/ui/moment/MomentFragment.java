@@ -1,14 +1,18 @@
 package com.xxx.recommendfilm.ui.moment;
 
-import androidx.lifecycle.Observer;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.content.Intent;
+import androidx.annotation.Nullable;
+import com.luck.picture.lib.PictureSelector;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.FragmentMomentBinding;
 import com.xxx.recommendfilm.model.moment.Moment;
 import com.xxx.recommendfilm.ui.base.BaseFragment;
-import com.xxx.recommendfilm.ui.base.BaseRecyclerAdapter;
+import com.xxx.recommendfilm.ui.release.ReleaseActivity;
+import com.xxx.recommendfilm.ui.util.PictureSelectUtil;
 import java.util.ArrayList;
-import java.util.List;
+import static android.app.Activity.RESULT_OK;
+import static com.xxx.recommendfilm.ui.release.ReleaseActivity.KEY_IMG;
+import static com.xxx.recommendfilm.ui.util.PictureSelectUtil.REQUESTCODE_AVATAR;
 
 public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentViewModel> {
 
@@ -23,7 +27,6 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
     protected int getLayoutRes() {
         return R.layout.fragment_moment;
     }
-
 
     @Override
     protected void initView() {
@@ -43,10 +46,28 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
         binding.refreshLayout.setOnRefreshListener(() -> {
 
         });
+
+        //发布影圈
+        binding.fbAdd.setOnClickListener(v -> {
+            PictureSelectUtil.showAvatarAlbum(getActivity());
+        });
     }
 
     @Override
     protected void initData() {
         viewModel.fetchMyMomentsList();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUESTCODE_AVATAR) {
+                String imgPath = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+                Intent intent = new Intent(getContext(), ReleaseActivity.class);
+                intent.putExtra(KEY_IMG, imgPath);
+                startActivity(intent);
+            }
+        }
     }
 }

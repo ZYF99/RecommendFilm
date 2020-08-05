@@ -12,6 +12,8 @@ import com.xxx.recommendfilm.ui.base.BaseActivity;
 import com.xxx.recommendfilm.ui.home.MainActivity;
 import com.xxx.recommendfilm.ui.login.LoginActivity;
 
+import io.reactivex.functions.Action;
+
 public class RegisterActivity extends BaseActivity<ActivityRegisterBinding, RegisterViewModel> {
 
     @Override
@@ -26,28 +28,13 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding, Regi
 
     @Override
     protected void initView() {
-        viewModel.isRegisterSuccess.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                    finish();
-                }
-
-            }
-        });
-        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.registerAndLogin();
-            }
-        });
-        binding.rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.rb_femail) viewModel.sex.postValue("F");
-                else viewModel.sex.postValue("M");
-            }
+        binding.btnRegister.setOnClickListener(v -> viewModel.registerAndLogin(() -> {
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            finish();
+        }));
+        binding.rgSex.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rb_femail) viewModel.sex.postValue("F");
+            else viewModel.sex.postValue("M");
         });
     }
 

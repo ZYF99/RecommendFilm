@@ -51,9 +51,9 @@ public class SettingViewModel extends BaseViewModel {
                         genderLiveData.getValue(),
                         nikeNameLiveData.getValue(),
                         signatureLiveData.getValue())
-                ).compose(ApiErrorUtil.<ResponseBody>dealError())
-                        .compose(RxUtil.<ResponseBody>switchThread())
-                        .compose(this.<ResponseBody>autoProgressDialog())
+                ).compose(ApiErrorUtil.dealError())
+                        .compose(RxUtil.switchThread())
+                        .compose(this.autoProgressDialog())
                         .doOnSuccess(responseBody -> {
                             try {
                                 onUpdated.run();

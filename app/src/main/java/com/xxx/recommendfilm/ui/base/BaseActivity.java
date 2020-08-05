@@ -55,17 +55,16 @@ public abstract class BaseActivity<Bind extends ViewDataBinding, VM extends Base
 
     //添加基类的事件的监听
     private void observeEvent() {
-        viewModel.isShowLoadingProgress.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(final Boolean aBoolean) {
-                    AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (aBoolean) DialogUtil.getInstance().showProgressDialog(BaseActivity.this);
-                            else DialogUtil.getInstance().hideProgressDialog();
-                        }
-                    });
-            }
-        });
+        viewModel.isShowLoadingProgress.observe(this, aBoolean -> AndroidSchedulers.mainThread().scheduleDirect(() -> {
+            if (aBoolean) DialogUtil.getInstance().showProgressDialog(this);
+            else DialogUtil.getInstance().hideProgressDialog();
+        }));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.onCleared();
+        viewModel.onDestroy();
     }
 }

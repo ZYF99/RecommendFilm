@@ -1,15 +1,14 @@
 package com.xxx.recommendfilm.ui.film;
 
+import android.content.Intent;
 import android.util.Pair;
-import androidx.lifecycle.Observer;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.FragmentFilmBinding;
 import com.xxx.recommendfilm.ui.base.BaseFragment;
 import com.xxx.recommendfilm.ui.innerfilm.InnerFilmFragment;
+import com.xxx.recommendfilm.ui.search.SearchActivity;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-
 
 public class FilmFragment extends BaseFragment<FragmentFilmBinding, FilmViewModel> {
 
@@ -28,20 +27,21 @@ public class FilmFragment extends BaseFragment<FragmentFilmBinding, FilmViewMode
     @Override
     protected void initView() {
 
-        viewModel.classifyListLiveData.observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                strings.forEach(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) {
-                        fragmentList.add(Pair.create(new InnerFilmFragment(),s));
-                    }
-                });
+        //监听分类列表，更新tab
+        viewModel.classifyListLiveData.observe(this, strings -> {
+            strings.forEach(s -> fragmentList.add(Pair.create(new InnerFilmFragment(),s)));
 
-                FilmPagerAdapter filmPagerAdapter = new FilmPagerAdapter(getChildFragmentManager(), fragmentList);
-                binding.viewPager.setAdapter(filmPagerAdapter);
-                binding.tabLayout.setupWithViewPager(binding.viewPager);
-            }
+            FilmPagerAdapter filmPagerAdapter = new FilmPagerAdapter(getChildFragmentManager(), fragmentList);
+            binding.viewPager.setAdapter(filmPagerAdapter);
+            binding.viewPager.setOffscreenPageLimit(strings.size()-1);
+            binding.tabLayout.setupWithViewPager(binding.viewPager);
+        });
+
+        //搜索框点击事件
+        binding.tvSearch.setOnClickListener(v -> {
+            //跳转搜索界面
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            startActivity(intent);
         });
     }
 

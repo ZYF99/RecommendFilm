@@ -1,7 +1,6 @@
-package com.xxx.recommendfilm.ui.innerfilm;
+package com.xxx.recommendfilm.ui.search;
 
 import androidx.lifecycle.MutableLiveData;
-import com.xxx.recommendfilm.model.ResultModel;
 import com.xxx.recommendfilm.model.film.Film;
 import com.xxx.recommendfilm.model.film.FilmPageModel;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
@@ -10,7 +9,9 @@ import com.xxx.recommendfilm.util.RxUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InnerFilmViewModel extends BaseViewModel {
+public class SearchViewModel extends BaseViewModel {
+
+    public MutableLiveData<String> searchKey = new MutableLiveData<>("");
     MutableLiveData<FilmPageModel> filmPageModelLiveData = new MutableLiveData<>();
     MutableLiveData<List<Film>> filmListLiveData = new MutableLiveData<List<Film>>(new ArrayList<Film>());
     private int currentPageNum = 1;
@@ -18,9 +19,9 @@ public class InnerFilmViewModel extends BaseViewModel {
     MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(false);
 
     //刷新电影列表
-    public void refreshFilmList(String classify) {
+    public void refreshFilmList() {
         bindLife(
-                apiService.fetchFilmListByClassify(classify, 1, 10)
+                apiService.fetchFilmListByName(searchKey.getValue(), 1, 10)
                         .compose(RxUtil.switchThread())
                         .compose(ApiErrorUtil.dealError())
                         .doOnSubscribe(disposable -> isRefreshing.postValue(true))
@@ -34,13 +35,13 @@ public class InnerFilmViewModel extends BaseViewModel {
     }
 
     //加载更多电影列表
-    public void loadMoreFilmList(String classify) {
+    public void loadMoreFilmList() {
         final int targetPageNum = currentPageNum + 1;
         bindLife(
-                apiService.fetchFilmListByClassify(classify, targetPageNum, 10)
-                        .compose(RxUtil.<ResultModel<FilmPageModel>>switchThread())
-                        .compose(ApiErrorUtil.<ResultModel<FilmPageModel>>dealError())
-                        .compose(this.<ResultModel<FilmPageModel>>autoProgressDialog())
+                apiService.fetchFilmListByClassify(searchKey.getValue(), targetPageNum, 10)
+                        .compose(RxUtil.switchThread())
+                        .compose(ApiErrorUtil.dealError())
+                        .compose(this.autoProgressDialog())
                         .doOnSubscribe(disposable -> isLoadingMore.postValue(true))
                         .doOnSuccess(filmPageModel -> {
                             filmPageModelLiveData.postValue(filmPageModel.getData());

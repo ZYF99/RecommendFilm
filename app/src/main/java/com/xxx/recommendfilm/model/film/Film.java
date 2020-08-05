@@ -13,6 +13,30 @@ public class Film {
     private String introduction;
     private String poster;
     private List<String> classifyList;
+    private List<FilmComment> movieReviewDetailRspList;
+
+    public Film(long mid, String name, String director, String scriptWriter, String starring, String releaseTime, int duration, String introduction, String poster, List<String> classifyList, List<FilmComment> movieReviewDetailRspList) {
+        this.mid = mid;
+        this.name = name;
+        this.director = director;
+        this.scriptWriter = scriptWriter;
+        this.starring = starring;
+        this.releaseTime = releaseTime;
+        this.duration = duration;
+        this.introduction = introduction;
+        this.poster = poster;
+        this.classifyList = classifyList;
+        this.movieReviewDetailRspList = movieReviewDetailRspList;
+    }
+
+    public List<FilmComment> getMovieReviewDetailRspList() {
+        return movieReviewDetailRspList;
+    }
+
+    public void setMovieReviewDetailRspList(List<FilmComment> movieReviewDetailRspList) {
+        this.movieReviewDetailRspList = movieReviewDetailRspList;
+    }
+
     public void setMid(long mid) {
         this.mid = mid;
     }

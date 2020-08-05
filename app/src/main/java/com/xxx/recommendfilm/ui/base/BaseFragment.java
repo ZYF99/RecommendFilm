@@ -68,13 +68,17 @@ public abstract class BaseFragment<Bind extends ViewDataBinding, VM extends Base
 
     //添加基类的事件的监听
     private void observeEvent() {
-        viewModel.isShowLoadingProgress.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) DialogUtil.getInstance().showProgressDialog(getContext());
-                else DialogUtil.getInstance().hideProgressDialog();
-            }
+        viewModel.isShowLoadingProgress.observe(getViewLifecycleOwner(), aBoolean -> {
+            if (aBoolean) DialogUtil.getInstance().showProgressDialog(getContext());
+            else DialogUtil.getInstance().hideProgressDialog();
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        viewModel.onCleared();
+        viewModel.onDestroy();
     }
 }
 
