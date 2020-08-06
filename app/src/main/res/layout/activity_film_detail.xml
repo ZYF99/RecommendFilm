@@ -15,54 +15,54 @@
         android:layout_height="match_parent"
         tools:context=".ui.filmdetail.FilmDetailActivity">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/im_film"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                imageUrl="@{viewModel.filmLiveData.poster}"
-                android:background="@drawable/corner_8dp_rect"
-                android:scaleType="centerInside"
-                android:src="@drawable/bg_design" />
-
-        </androidx.cardview.widget.CardView>
-
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_margin="16dp"
             android:text="@{viewModel.filmLiveData.name}"
             android:textColor="#000000"
             android:textSize="24dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/im_film"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/im_film"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="w,2:3"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+            <ImageView
+                imageUrl="@{viewModel.filmLiveData.poster}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/corner_8dp_rect"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_design" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_brief"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:text="@{viewModel.filmLiveData.introduction}"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/im_film"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/im_film"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintEnd_toEndOf="@+id/im_film"
+            app:layout_constraintStart_toStartOf="@+id/im_film"
+            app:layout_constraintTop_toBottomOf="@+id/im_film" />
 
         <TextView
             android:id="@+id/tv_tip_director"
@@ -72,21 +72,23 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="导演"
-            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/im_film" />
+            app:layout_constraintTop_toBottomOf="@id/tv_brief" />
 
         <TextView
             android:id="@+id/tv_director"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@{viewModel.filmLiveData.director}"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_tip_director"
-            app:layout_constraintTop_toBottomOf="@id/im_film" />
+            app:layout_constraintTop_toBottomOf="@id/tv_brief" />
 
         <TextView
             android:id="@+id/tv_tip_starring"
@@ -96,7 +98,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="主演"
-            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_director" />
 
@@ -104,6 +107,7 @@
             android:id="@+id/tv_starring"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@{viewModel.filmLiveData.starring}"
@@ -120,7 +124,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="影评"
-            android:textSize="16dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_starring" />

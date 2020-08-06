@@ -4,6 +4,7 @@ import com.xxx.recommendfilm.model.ResultModel;
 import com.xxx.recommendfilm.model.UploadImageResultModel;
 import com.xxx.recommendfilm.model.film.ClassifyListModel;
 import com.xxx.recommendfilm.model.film.Film;
+import com.xxx.recommendfilm.model.film.FilmComment;
 import com.xxx.recommendfilm.model.film.FilmPageModel;
 import com.xxx.recommendfilm.model.login.LoginRequestModel;
 import com.xxx.recommendfilm.model.login.LoginResultModel;
@@ -55,6 +56,9 @@ public interface ApiService {
     @GET("movie/mid")
     Single<ResultModel<Film>> fetchFilmDetailInfo(@Query("mid") Long mid);
 
+    //按mid发起影评
+    @GET("movie/review")
+    Single<ResultModel<String>> reviewFilm(@Body FilmComment filmComment);
 
 
     //通知相关------------------------------------------------------------------------------------------------------------------------------------

@@ -1,20 +1,14 @@
 package com.xxx.recommendfilm.ui.search;
 
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.ActivitySearchBinding;
 import com.xxx.recommendfilm.ui.base.BaseActivity;
 import com.xxx.recommendfilm.ui.filmdetail.FilmDetailActivity;
 import com.xxx.recommendfilm.ui.innerfilm.InnerFilmRecyclerAdapter;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
