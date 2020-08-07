@@ -7,10 +7,12 @@ import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import com.xxx.recommendfilm.util.ApiErrorUtil;
 import com.xxx.recommendfilm.util.RxUtil;
 import java.util.List;
+import java.util.Objects;
 
 public class FilmDetailViewModel extends BaseViewModel {
 
     MutableLiveData<List<FilmComment>> filmCommentListLiveData = new MutableLiveData<>();
+    public MutableLiveData<String> commentContentLiveData = new MutableLiveData<>("");
     public MutableLiveData<Film> filmLiveData = new MutableLiveData<>();
 
     //获取电影详细信息
@@ -27,6 +29,21 @@ public class FilmDetailViewModel extends BaseViewModel {
                                     filmCommentListLiveData.postValue(filmDetailModel.getData().getMovieReviewDetailRspList());
                                 }
                         )
+        );
+    }
+
+    //发起影评
+    public void submitComment(Long mid) {
+        if (Objects.requireNonNull(commentContentLiveData.getValue()).isEmpty()) return;
+        bindLife(
+                apiService.reviewFilm(new FilmComment(mid, commentContentLiveData.getValue()))
+                        .compose(RxUtil.switchThread())
+                        .compose(ApiErrorUtil.dealError())
+                        .compose(autoProgressDialog())
+                        .doOnSuccess(s -> {
+                            fetchFilmDetailInfo(mid);
+                            commentContentLiveData.setValue("");
+                        })
         );
     }
 

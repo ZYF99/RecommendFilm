@@ -57,8 +57,8 @@ public interface ApiService {
     Single<ResultModel<Film>> fetchFilmDetailInfo(@Query("mid") Long mid);
 
     //按mid发起影评
-    @GET("movie/review")
-    Single<ResultModel<String>> reviewFilm(@Body FilmComment filmComment);
+    @POST("movie/review")
+    Single<ResponseBody> reviewFilm(@Body FilmComment filmComment);
 
 
     //通知相关------------------------------------------------------------------------------------------------------------------------------------

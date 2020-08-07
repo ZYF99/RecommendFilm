@@ -16,41 +16,38 @@
         android:id="@+id/cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:background="#F3F3F3"
+        android:paddingBottom="6dp"
+        android:layout_margin="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/im_avatar"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_margin="6dp"
             android:src="@drawable/logo"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <TextView
+            android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:text="@{filmComment.content}"
+            android:textColor="@color/black_effective"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/im_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/im_avatar"
-            app:layout_constraintTop_toTopOf="@id/im_avatar">
+            app:layout_constraintTop_toTopOf="@+id/im_avatar"
+            tools:text="xxxxxxxxxxxxxxxxxxx" />
 
 
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="@{filmComment.content}"
-                android:textColor="@color/black_effective"
-                android:textSize="14dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="xxxxxxxxxxxxxxxxxxx" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

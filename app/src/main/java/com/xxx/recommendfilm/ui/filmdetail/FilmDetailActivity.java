@@ -11,6 +11,8 @@ public class FilmDetailActivity extends BaseActivity<ActivityFilmDetailBinding, 
 
     FilmCommentRecyclerAdapter filmCommentRecyclerAdapter;
 
+    Long mid;
+
     @Override
     protected Class<FilmDetailViewModel> getViewModelClazz() {
         return FilmDetailViewModel.class;
@@ -23,17 +25,19 @@ public class FilmDetailActivity extends BaseActivity<ActivityFilmDetailBinding, 
 
     @Override
     protected void initView() {
+        //得到传进来的mid
+        mid = getIntent().getLongExtra(KEY_MID, 0);
         //列表数据变化时，刷新RecyclerView列表的UI
         viewModel.filmCommentListLiveData.observe(this, filmComments -> filmCommentRecyclerAdapter.replaceData(filmComments));
         //电影列表适配器
         filmCommentRecyclerAdapter = new FilmCommentRecyclerAdapter(this, R.layout.item_film_comment, true, new ArrayList<>());
         binding.rvComment.setAdapter(filmCommentRecyclerAdapter);
+        binding.btnSubmit.setOnClickListener(v -> viewModel.submitComment(mid));
+
     }
 
     @Override
     protected void initData() {
-        //得到传进来的mid
-        Long mid = getIntent().getLongExtra(KEY_MID, 0);
         //根据传进来的mid获取电影详情信息
         viewModel.fetchFilmDetailInfo(mid);
     }
