@@ -16,9 +16,9 @@
         android:id="@+id/cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:background="#F3F3F3"
-        android:paddingBottom="6dp"
-        android:layout_margin="8dp">
+        android:paddingBottom="6dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/im_avatar"
@@ -47,10 +47,6 @@
             app:layout_constraintTop_toTopOf="@+id/im_avatar"
             tools:text="xxxxxxxxxxxxxxxxxxx" />
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>
