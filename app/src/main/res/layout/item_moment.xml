@@ -47,10 +47,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/bg_design"
+                    imageUrl="@{moment.image}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/bg_design" />
 
             </androidx.cardview.widget.CardView>
 
@@ -59,14 +60,13 @@
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Online project hosting using Git. Includes source-code browser, in-line editing, wikis, and ticketing. Free for public open-source code. Commercial closed sou..."
+                android:text="@{moment.content}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Online project hosting using Git. Includes source-code browser, in-line editing, wikis, and ticketing. Free for public open-source code. Commercial closed sou..." />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -77,12 +77,27 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="end"
-            android:text="17:40"
+            tools:text="17:40"
             android:textColor="#A8A8A8"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/cl_img"
             app:layout_constraintStart_toStartOf="@+id/cl_img"
             app:layout_constraintTop_toBottomOf="@+id/cl_img"
+            tools:ignore="RtlCompat" />
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            tools:text="审核中"
+            android:text="@{moment.getState()}"
+            android:textColor="#A8A8A8"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_time"
+            app:layout_constraintStart_toStartOf="@+id/tv_time"
+            app:layout_constraintTop_toBottomOf="@id/tv_time"
             tools:ignore="RtlCompat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

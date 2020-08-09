@@ -1,7 +1,9 @@
 package com.xxx.recommendfilm.ui.moment;
 
 import android.content.Intent;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import com.luck.picture.lib.PictureSelector;
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.FragmentMomentBinding;
@@ -30,8 +32,10 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
 
     @Override
     protected void initView() {
-
-        viewModel.momentList.observe(this, moments -> momentRecyclerAdapter.replaceData(moments));
+        viewModel.momentListLiveData.observe(this, filmList -> {
+            momentRecyclerAdapter.replaceData(filmList);
+            binding.refreshLayout.setRefreshing(false);
+        });
 
         //电影列表适配器
         momentRecyclerAdapter = new MomentRecyclerAdapter(this, R.layout.item_moment, true, new ArrayList<Moment>());
@@ -44,18 +48,37 @@ public class MomentFragment extends BaseFragment<FragmentMomentBinding, MomentVi
 
         //下拉刷新监听
         binding.refreshLayout.setOnRefreshListener(() -> {
-
+            viewModel.refreshMomentsList();
         });
 
         //发布影圈
         binding.fbAdd.setOnClickListener(v -> {
             PictureSelectUtil.showAvatarAlbum(getActivity());
         });
+
+        //上拉加载
+        binding.rvMoment.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (viewModel.momentPageModelMutableLiveData.getValue() != null) {
+                    if (!recyclerView.canScrollVertically(1)) {
+                        if (!viewModel.isLoadingMore.getValue()
+                                && viewModel.momentPageModelMutableLiveData.getValue().getPages() > 1
+                                && !viewModel.momentPageModelMutableLiveData.getValue().isLastPage()
+                        ) {
+                            viewModel.loadMoreMomentsList();
+                        }
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
     protected void initData() {
-        viewModel.fetchMyMomentsList();
+        viewModel.refreshMomentsList();
     }
 
     @Override

@@ -32,7 +32,7 @@ public class NetErrorInterceptor implements Interceptor {
             assert charset != null;
             String responseStr = source.getBuffer().clone().readString(charset);
             ResultModel errorModel = new Gson().fromJson(responseStr, ResultModel.class);
-            if (errorModel.getMeta().getCode() != 1000) {
+            if (errorModel.getMeta().getCode() < 1000 && errorModel.getMeta().getCode() > 2000) {
                 throw new ApiException(errorModel.getMeta().getCode(), errorModel.getMeta().getMsg());
             }
 /*            try {

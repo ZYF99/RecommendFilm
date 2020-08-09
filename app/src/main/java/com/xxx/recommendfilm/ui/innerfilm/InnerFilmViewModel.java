@@ -12,7 +12,7 @@ import java.util.List;
 
 public class InnerFilmViewModel extends BaseViewModel {
     MutableLiveData<FilmPageModel> filmPageModelLiveData = new MutableLiveData<>();
-    MutableLiveData<List<Film>> filmListLiveData = new MutableLiveData<List<Film>>(new ArrayList<Film>());
+    MutableLiveData<List<Film>> filmListLiveData = new MutableLiveData<List<Film>>(new ArrayList<>());
     private int currentPageNum = 1;
     MutableLiveData<Boolean> isLoadingMore = new MutableLiveData<>(false);
     MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(false);
@@ -24,10 +24,10 @@ public class InnerFilmViewModel extends BaseViewModel {
                         .compose(RxUtil.switchThread())
                         .compose(ApiErrorUtil.dealError())
                         .doOnSubscribe(disposable -> isRefreshing.postValue(true))
-                        .doOnSuccess(filmList -> {
+                        .doOnSuccess(filmResultModel -> {
                             currentPageNum = 1;
-                            filmPageModelLiveData.postValue(filmList.getData());
-                            filmListLiveData.postValue(filmPageModelLiveData.getValue().getDataList());
+                            filmPageModelLiveData.postValue(filmResultModel.getData());
+                            filmListLiveData.postValue(filmResultModel.getData().getDataList());
                         })
                         .doFinally(() -> isRefreshing.postValue(false))
         );

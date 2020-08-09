@@ -1,15 +1,19 @@
 package com.xxx.recommendfilm.ui.mine;
 
 import androidx.lifecycle.MutableLiveData;
-import com.xxx.recommendfilm.model.ResultModel;
+
 import com.xxx.recommendfilm.model.mine.UserProfile;
 import com.xxx.recommendfilm.model.moment.Moment;
+import com.xxx.recommendfilm.model.notice.Notice;
 import com.xxx.recommendfilm.ui.base.BaseViewModel;
 import com.xxx.recommendfilm.util.ApiErrorUtil;
 import com.xxx.recommendfilm.util.RxUtil;
-import java.util.ArrayList;
+
 import java.util.List;
+
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import okhttp3.ResponseBody;
 
 public class MineViewModel extends BaseViewModel {
 
@@ -20,37 +24,33 @@ public class MineViewModel extends BaseViewModel {
     public void getUserProfile() {
         bindLife(
                 apiService.getUserProfile()
-                        .compose(RxUtil.<ResultModel<UserProfile>>switchThread())
-                        .compose(ApiErrorUtil.<ResultModel<UserProfile>>dealError())
-                        .doOnSuccess(new Consumer<ResultModel<UserProfile>>() {
-                            @Override
-                            public void accept(ResultModel<UserProfile> userProfile) {
-                                userProfileLiveData.postValue(userProfile.getData());
-                            }
-                        })
+                        .compose(RxUtil.switchThread())
+                        .compose(ApiErrorUtil.dealError())
+                        .doOnSuccess(userProfile -> userProfileLiveData.postValue(userProfile.getData()))
         );
     }
 
     //拉取影圈列表
     public void fetchMyMomentsList() {
-/*        bindLife(
-                apiService.fetchMomentList()
-                        .compose(RxUtil.<ResultModel<List<Moment>>>switchThread())
-                        .compose(ApiErrorUtil.<ResultModel<List<Moment>>>dealError())
-                        .compose(this.<ResultModel<List<Moment>>>autoProgressDialog())
-                        .doOnSuccess(new Consumer<ResultModel<List<Moment>>>() {
-                            @Override
-                            public void accept(ResultModel<List<Moment>> userProfile) {
-                                momentList.postValue(userProfile.getData());
-                            }
-                        })
-        );*/
-        List<Moment> moments = new ArrayList<>();
-        moments.add(new Moment());
-        moments.add(new Moment());
-        moments.add(new Moment());
-        moments.add(new Moment());
-        momentListLiveData.postValue(moments);
+        bindLife(
+                apiService.fetchMyMomentList(1, 1000)
+                        .compose(RxUtil.switchThread())
+                        .compose(ApiErrorUtil.dealError())
+                        .compose(autoProgressDialog())
+                        .doOnSuccess(momentPageModelResultModel -> momentListLiveData.postValue(momentPageModelResultModel.getData().getDataList()))
+        );
     }
 
+    //发起反馈
+    public void feedBack(String content, Action action) {
+        bindLife(
+                apiService.feedback(new Notice(content))
+                        .compose(RxUtil.switchThread())
+                        .compose(ApiErrorUtil.dealError())
+                        .compose(autoProgressDialog())
+                        .doOnSuccess(responseBody -> {
+                            action.run();
+                        })
+        );
+    }
 }

@@ -11,6 +11,10 @@ import com.xxx.recommendfilm.model.login.LoginResultModel;
 import com.xxx.recommendfilm.model.mine.UpdateUserProfileRequestModel;
 import com.xxx.recommendfilm.model.mine.UserProfile;
 import com.xxx.recommendfilm.model.moment.Moment;
+import com.xxx.recommendfilm.model.moment.MomentPageModel;
+import com.xxx.recommendfilm.model.moment.ReleaseMomentRequestModel;
+import com.xxx.recommendfilm.model.notice.Notice;
+import com.xxx.recommendfilm.model.notice.NoticePageModel;
 import com.xxx.recommendfilm.model.register.RegisterRequestModel;
 import com.xxx.recommendfilm.model.register.RegisterResultModel;
 
@@ -62,17 +66,32 @@ public interface ApiService {
 
 
     //通知相关------------------------------------------------------------------------------------------------------------------------------------
-
+    //拉趣通知
+    @GET("news")
+    Single<ResultModel<NoticePageModel>> fetchNoticeList(
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize);
 
     //影圈相关------------------------------------------------------------------------------------------------------------------------------------
 
     //获取全部影圈
-    @GET("moments")
-    Single<ResultModel<List<Moment>>> fetchMomentList();
+    @GET("moment")
+    Single<ResultModel<MomentPageModel>> fetchMomentList(
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize
+    );
+
+    //发布影圈
+    @POST("moment")
+    Single<ResponseBody> releaseMoment(@Body ReleaseMomentRequestModel releaseMomentRequestModel);
+
 
     //获取我发布的影圈
-    @GET("mymoments")
-    Single<ResultModel<List<Moment>>> fetchMyMomentList();
+    @GET("moment/me")
+    Single<ResultModel<MomentPageModel>> fetchMyMomentList(
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize
+    );
 
 
     //账户相关------------------------------------------------------------------------------------------------------------------------------------
@@ -99,4 +118,8 @@ public interface ApiService {
     @POST("tools/upload")
     Single<ResultModel<UploadImageResultModel>> upLoadImage(@Part MultipartBody.Part file);
 
+    //反馈--------------------------------------------------------------------------------------------------------------------------------------
+    //用户反馈
+    @POST("feedback")
+    Single<ResponseBody> feedback(@Body Notice notice);
 }

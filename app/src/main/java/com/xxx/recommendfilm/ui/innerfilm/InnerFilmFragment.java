@@ -1,20 +1,17 @@
 package com.xxx.recommendfilm.ui.innerfilm;
 
 import android.content.Intent;
-import android.view.View;
-
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.xxx.recommendfilm.R;
 import com.xxx.recommendfilm.databinding.FragmentInnerFilmBinding;
+import com.xxx.recommendfilm.model.film.Film;
 import com.xxx.recommendfilm.ui.base.BaseFragment;
 import com.xxx.recommendfilm.ui.filmdetail.FilmDetailActivity;
-import com.xxx.recommendfilm.ui.search.SearchActivity;
-
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
 import static com.xxx.recommendfilm.ui.filmdetail.FilmDetailActivity.KEY_MID;
 
 public class InnerFilmFragment extends BaseFragment<FragmentInnerFilmBinding, InnerFilmViewModel> {
@@ -40,14 +37,16 @@ public class InnerFilmFragment extends BaseFragment<FragmentInnerFilmBinding, In
         assert getArguments() != null;
         classify = getArguments().getString(KEY_CLASSIFY);
 
+        viewModel.filmListLiveData.observe(this, new Observer<List<Film>>() {
+            @Override
+            public void onChanged(List<Film> films) {
+                innerFilmRecyclerAdapter.replaceData(films);
+            }
+        });
+
         viewModel.isRefreshing.observe(this, aBoolean -> binding.refreshLayout.setRefreshing(aBoolean));
 
         viewModel.isLoadingMore.observe(this, aBoolean -> ((InnerFilmRecyclerAdapter) Objects.requireNonNull(binding.rvFilm.getAdapter())).onLoadMore.postValue(aBoolean));
-
-        viewModel.filmPageModelLiveData.observe(this, filmPageModel -> {
-            innerFilmRecyclerAdapter.replaceData(filmPageModel.getDataList());
-            binding.refreshLayout.setRefreshing(false);
-        });
 
         //电影列表适配器
         innerFilmRecyclerAdapter = new InnerFilmRecyclerAdapter(this, R.layout.item_film, true, new ArrayList<>());
@@ -70,13 +69,13 @@ public class InnerFilmFragment extends BaseFragment<FragmentInnerFilmBinding, In
                 super.onScrolled(recyclerView, dx, dy);
                 if (viewModel.filmPageModelLiveData.getValue() != null) {
                     if (!recyclerView.canScrollVertically(1)) {
-                        if (!viewModel.isLoadingMore.getValue() && viewModel.filmPageModelLiveData.getValue().getPages() > 1) {
+                        if (!viewModel.isLoadingMore.getValue()
+                                && viewModel.filmPageModelLiveData.getValue().getPages() > 1
+                                && !viewModel.filmPageModelLiveData.getValue().getIsLastPage()) {
                             viewModel.loadMoreFilmList(classify);
                         }
                     }
                 }
-
-
             }
         });
 
